@@ -11,7 +11,7 @@ class Link(BotPlugin):
     def link(self, msg, args):
         """ Return link """
 
-        key = args.pop(0)
+        key = str(args.pop(0))
 
         if key is '':
             self.send(msg.frm, 'link for what?', message_type=msg.type)
@@ -34,7 +34,7 @@ class Link(BotPlugin):
         if len(args) != 2:
             self.send(msg.frm, 'Wrong number of arguments. You need 2.', message_type=msg.type)
 
-        key = args.pop(0)
+        key = str(args.pop(0))
         link = args.pop(0)
 
         self.shelf[key] = {
@@ -47,7 +47,7 @@ class Link(BotPlugin):
     def link_delete(self, msg, args):
         """ Delete link """
         try:
-            link_key = args.pop(0)
+            link_key = str(args.pop(0))
             del self.shelf[link_key]
             self.shelf.sync()
             self.send(msg.frm, 'Successfully deleted "{0}"'.format(link_key), message_type=msg.type)
