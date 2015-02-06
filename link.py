@@ -35,7 +35,7 @@ class Link(BotPlugin):
             self.send(msg.frm, 'Wrong number of arguments. You need 2.', message_type=msg.type)
 
         key = str(args.pop(0))
-        link = args.pop(0)
+        link = str(args.pop(0))
 
         self.shelf[key] = {
             'updated': datetime.now(),
