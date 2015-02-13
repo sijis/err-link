@@ -43,6 +43,7 @@ class Link(BotPlugin):
             'url': link,
         }
         self.shelf.sync()
+        self.send(msg.frm, 'Successfully added "{0}"'.format(key), message_type=msg.type)
 
     @botcmd(split_args_with=' ')
     def link_delete(self, msg, args):
