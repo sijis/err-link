@@ -33,6 +33,7 @@ class Link(BotPlugin):
 
         if len(args) != 2:
             self.send(msg.frm, 'Wrong number of arguments. You need 2.', message_type=msg.type)
+            return
 
         key = str(args.pop(0))
         link = str(args.pop(0))
