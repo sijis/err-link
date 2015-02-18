@@ -6,4 +6,4 @@ Module = link
 Version=2+
 
 [Documentation]
-Description = Adds custom links to short commands
+Description = Returns user defined links from short commands
