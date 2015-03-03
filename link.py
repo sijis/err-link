@@ -9,7 +9,10 @@ class Link(BotPlugin):
 
     @botcmd(split_args_with=' ')
     def link(self, msg, args):
-        """ Return link """
+        ''' Return link
+            example:
+            !link google
+        '''
 
         key = str(args.pop(0))
 
@@ -41,7 +44,10 @@ class Link(BotPlugin):
 
     @botcmd(split_args_with=' ')
     def link_add(self, msg, args):
-        """ Add or updates a link """
+        ''' Add or updates a link
+            example:
+            !link add google http://google.com
+        '''
 
         if len(args) != 2:
             self.send(msg.frm,
@@ -68,7 +74,10 @@ class Link(BotPlugin):
 
     @botcmd(split_args_with=' ')
     def link_delete(self, msg, args):
-        """ Delete link """
+        ''' Delete link
+            example:
+            !link delete google
+        '''
         try:
             link_key = str(args.pop(0))
             del self.shelf[link_key]
@@ -88,13 +97,17 @@ class Link(BotPlugin):
 
     @botcmd
     def link_list(self, msg, args):
+        ''' List all available links
+            example:
+            !link list
+        '''
         key_list = []
 
         for key in self.shelf.keys():
             key_list.append(key)
 
         self.send(msg.frm,
-                  'Available keys: {0}'.format(','.join(key_list)),
+                  'Available keys: {0}'.format(', '.join(key_list)),
                   message_type=msg.type,
                   in_reply_to=msg,
                   groupchat_nick_reply=True)
