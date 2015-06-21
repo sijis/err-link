@@ -5,6 +5,7 @@ from errbot import botcmd, BotPlugin
 
 log = logging.getLogger(name='errbot.plugins.Link')
 
+
 class Link(BotPlugin):
 
     @botcmd(split_args_with=' ')
@@ -70,7 +71,6 @@ class Link(BotPlugin):
                   message_type=msg.type,
                   in_reply_to=msg,
                   groupchat_nick_reply=True)
-
 
     @botcmd(split_args_with=' ')
     def link_delete(self, msg, args):
