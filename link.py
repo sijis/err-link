@@ -28,7 +28,7 @@ class Link(BotPlugin):
         log.debug('{0} requested link for {1}'.format(msg.frm, key))
 
         try:
-            link_key = self.shelf[key]
+            link_key = self[key]
             self.send(msg.frm,
                       link_key['url'],
                       message_type=msg.type,
@@ -61,11 +61,10 @@ class Link(BotPlugin):
         key = str(args.pop(0))
         link = str(args.pop(0))
 
-        self.shelf[key] = {
+        self[key] = {
             'updated': datetime.now(),
             'url': link,
         }
-        self.shelf.sync()
         self.send(msg.frm,
                   'Successfully added "{0}"'.format(key),
                   message_type=msg.type,
@@ -80,8 +79,7 @@ class Link(BotPlugin):
         '''
         try:
             link_key = str(args.pop(0))
-            del self.shelf[link_key]
-            self.shelf.sync()
+            del self[link_key]
             self.send(msg.frm,
                       'Successfully deleted "{0}"'.format(link_key),
                       message_type=msg.type,
@@ -103,7 +101,7 @@ class Link(BotPlugin):
         '''
         key_list = []
 
-        for key in self.shelf.keys():
+        for key in self.keys():
             key_list.append(key)
 
         self.send(msg.frm,
