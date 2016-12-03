@@ -1,10 +1,10 @@
 import link
-from errbot.backends.test import testbot
-from errbot import plugin_manager
+
+pytest_plugins = ["errbot.backends.test"]
+extra_plugin_dir = '.'
 
 
 class TestLink(object):
-    extra_plugin_dir = '.'
 
     def test_link_add(self, testbot):
         testbot.push_message('!link add github http://github.com')
