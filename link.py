@@ -18,30 +18,16 @@ class Link(BotPlugin):
         key = str(args.pop(0))
 
         if key is '':
-            self.send(msg.frm,
-                      'link for what?',
-                      message_type=msg.type,
-                      in_reply_to=msg,
-                      groupchat_nick_reply=True)
-            return
+            return 'link for what?'
 
         log.debug('{0} requested link for {1}'.format(msg.frm, key))
 
         try:
             link_key = self[key]
-            self.send(msg.frm,
-                      link_key['url'],
-                      message_type=msg.type,
-                      in_reply_to=msg,
-                      groupchat_nick_reply=True)
+            msg = link_key['url']
         except KeyError:
-            self.send(msg.frm,
-                      'I have no link for {0}'.format(key),
-                      message_type=msg.type,
-                      in_reply_to=msg,
-                      groupchat_nick_reply=True)
-
-        return
+            msg = 'I have no link for {0}'.format(key)
+        return msg
 
     @botcmd(split_args_with=' ')
     def link_add(self, msg, args):
@@ -51,12 +37,7 @@ class Link(BotPlugin):
         '''
 
         if len(args) != 2:
-            self.send(msg.frm,
-                      'Wrong number of arguments. You need 2.',
-                      message_type=msg.type,
-                      in_reply_to=msg,
-                      groupchat_nick_reply=True)
-            return
+            return 'Wrong number of arguments. You need 2.'
 
         key = str(args.pop(0))
         link = str(args.pop(0))
@@ -65,11 +46,7 @@ class Link(BotPlugin):
             'updated': datetime.now(),
             'url': link,
         }
-        self.send(msg.frm,
-                  'Successfully added "{0}"'.format(key),
-                  message_type=msg.type,
-                  in_reply_to=msg,
-                  groupchat_nick_reply=True)
+        return 'Successfully added "{0}"'.format(key)
 
     @botcmd(split_args_with=' ')
     def link_delete(self, msg, args):
@@ -80,18 +57,11 @@ class Link(BotPlugin):
         try:
             link_key = str(args.pop(0))
             del self[link_key]
-            self.send(msg.frm,
-                      'Successfully deleted "{0}"'.format(link_key),
-                      message_type=msg.type,
-                      in_reply_to=msg,
-                      groupchat_nick_reply=True)
+            msg = 'Successfully deleted "{0}"'.format(link_key)
         except KeyError:
-            self.send(msg.frm,
-                      'I have no record of {0}'.format(link_key),
-                      message_type=msg.type,
-                      in_reply_to=msg,
-                      groupchat_nick_reply=True)
-        return
+            msg = 'I have no record of {0}'.format(link_key)
+
+        return msg
 
     @botcmd
     def link_list(self, msg, args):
@@ -104,8 +74,4 @@ class Link(BotPlugin):
         for key in self.keys():
             key_list.append(key)
 
-        self.send(msg.frm,
-                  'Available keys: {0}'.format(', '.join(key_list)),
-                  message_type=msg.type,
-                  in_reply_to=msg,
-                  groupchat_nick_reply=True)
+        return 'Available keys: {0}'.format(', '.join(key_list))
